@@ -1,0 +1,49 @@
+﻿@model InfoTrackProject.Models.ViewModel.HomeIndexViewModel
+
+@{
+	ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+	<h1 class="">Search term finder</h1>
+</div>
+
+<div class="row">
+	<form action="/home/index" method="post">
+
+		<div>
+			@Html.DisplayNameFor(x => x.SearchEngines):
+			<select name="searchEngine">
+				@{
+					foreach (var item in Model.SearchEngines)
+					{
+						<option value=@item.Text>@item.Text</option>
+					}
+				}
+			</select>
+
+			@Html.DisplayNameFor(x => x.NumOfSearchesOnPage):			
+			@(Html.TextBox("NumOfSearches", Model.NumOfSearchesOnPage))
+
+			@Html.DisplayNameFor(x => x.SearchTerm):			
+			@(Html.TextBox("SearchTerm", Model.SearchTerm))
+
+			@Html.DisplayNameFor(x => x.SearchQuery):			
+			@(Html.TextBox("SearchQuery", Model.SearchQuery))
+		</div>
+		<div class="submit-button-div">
+			<input type="submit" class="btn btn-primary"/>
+		</div>
+</form>
+</div>
+
+@if (Model.SearchResults.IsEmpty() == false)
+{
+	<div class="search-results-div">
+		<h2>@Model.SearchEngine.ToString() Search results:</h2>
+		<p class="search-results-text"> @Model.SearchResults</p>
+	</div>
+}
+
+
+
